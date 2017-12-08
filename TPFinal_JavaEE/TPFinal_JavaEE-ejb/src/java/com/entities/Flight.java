@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  * @author Jenn
  */
 @Entity
-@Table(name="flights")
+@Table(name = "flights")
 public class Flight implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,10 +50,13 @@ public class Flight implements Serializable {
         this.price = price;
     }
 
+    @Column(name = "ORIGIN")
     private String origin;//Origen del vuelo
+    @Column(name = "DESTINATION")
     private String destination;//Destino del vuelo
+    @Column(name = "PRICE")
     private double price;//Precio del vuelo
-    
+
     public Long getId() {
         return id;
     }
@@ -61,7 +65,6 @@ public class Flight implements Serializable {
         this.id = id;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -86,5 +89,5 @@ public class Flight implements Serializable {
     public String toString() {
         return "com.entities.Flight[ id=" + id + " ]";
     }
-    
+
 }

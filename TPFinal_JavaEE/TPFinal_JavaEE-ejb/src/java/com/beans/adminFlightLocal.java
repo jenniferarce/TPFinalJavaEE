@@ -6,6 +6,7 @@
 package com.beans;
 
 import com.entities.Flight;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -15,4 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface adminFlightLocal {
     public Flight doSearchFlight(String origin, String destination);
+    
+    List<String> doSearchDestinations();
+    List<String> doSearchOrigins();
 }

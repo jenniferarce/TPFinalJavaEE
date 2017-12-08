@@ -6,7 +6,13 @@
 package com.beans;
 
 import com.entities.Flight;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -14,6 +20,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class adminFlight implements adminFlightLocal {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public Flight doSearchFlight(String origin, String destination) {
@@ -26,4 +35,22 @@ public class adminFlight implements adminFlightLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @Override
+    public List<String> doSearchDestinations() {
+
+        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT DISTINCT(f.destination) FROM Flight AS f");
+
+        List<String> destinations = tQuery.getResultList();
+        
+        return destinations;
+    }
+
+    @Override
+    public List<String> doSearchOrigins() {
+       TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT DISTINCT(f.origin) FROM Flight AS f");
+
+        List<String> origins = tQuery.getResultList();
+        
+        return origins;
+    }
 }

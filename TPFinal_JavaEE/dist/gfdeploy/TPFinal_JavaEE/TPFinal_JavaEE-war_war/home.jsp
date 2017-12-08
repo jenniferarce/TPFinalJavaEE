@@ -4,6 +4,8 @@
     Author     : Jenn
 --%>
 
+<%@page import="com.beans.adminFlight"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,7 +67,9 @@
         </div>
 
         <br><br>
-
+<!-- 
+        <%  //  List<String> aux = adminFlight.doSearchDestinations() %> -->
+        
         <div class="container d-flex justify-content-center flex-md-column">
 
             <div class="col-sm-5 m-auto">
