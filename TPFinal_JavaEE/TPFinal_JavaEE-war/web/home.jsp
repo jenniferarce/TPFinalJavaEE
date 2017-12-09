@@ -1,3 +1,6 @@
+<%@page import="com.entities.Flight"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
@@ -84,7 +87,7 @@
 
         <br><br>
 
-        <div class="container d-flex justify-content-center flex-md-column">
+        <div class="container d-flex justify-content-center flex-md-column pb-4">
 
             <div class="col-sm-5 m-auto">
                 <sql:setDataSource  var="co"   driver="com.mysql.jdbc.Driver" 
@@ -101,6 +104,9 @@
                     SELECT DISTINCT(DESTINATION) FROM flights
                 </sql:query>
 
+                <sql:query var="flights" dataSource="${co}">
+                    SELECT ORIGIN, DESTINATION, PRICE FROM flights
+                </sql:query>
 
                 <form method="GET" action="searchFlight">
                     <h4>Search flights</h4>
@@ -145,17 +151,104 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="row" items="${flights.rowsByIndex}">
+                            <tr>
+                                <c:forEach var="column" items="${row}">
+                                    <td><c:out value="${column}"/></td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
                         <tr>
-                            <td>Buenos Aires</td>
-                            <td>Londres</td>
-                            <td>55.000</td>
+                            <td>---</td>
+                            <td>---</td>
+                            <td>--</td>
                         </tr>
+                        <c:forEach var="row" items="<%= request.getParameter("flights")%>">
+                            <tr>
+                                <c:forEach var="column" items="${row}">
+                                    <td><c:out value="${column}"/></td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
+
                     </tbody>
                 </table>
 
+                <hr>
+                <h4>RESULTS: </h4>
+
+                <table id="resultsTable" class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="row" items="<%= request.getParameter("flights")%>">
+                            <tr>
+                                <c:forEach var="column" items="${row}">
+                                    <td><c:out value="${column}"/></td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
+
+                    </tbody>
+                </table>
             </div>
 
+            <hr>
+            <h2>TEST RESULTS: </h2>
+            <table width="700px" align="center"
+                   style="border:1px solid #000000;">
+                <tr>
+                    <td colspan=4 align="center"
+                        style="background-color:teal">
+                        <b>User Record</b></td>
+                </tr>
+                <tr style="background-color:lightgrey;">
+                    <td><b>User Name</b></td>
+                    <td><b>Password</b></td>
+                    <td><b>Email</b></td>
+                </tr>
+                <%
+                    int count = 0;
+                    String color = "#F9EBB3";
+                    if (request.getAttribute("flights") != null) {
+                        ArrayList<Flight> al = (ArrayList<Flight>)request.getAttribute("flights");
+                        System.out.println(al);
+                        Iterator itr = al.iterator();
+                        while (itr.hasNext()) {
+
+                            if ((count % 2) == 0) {
+                                color = "#eeffee";
+                            }
+                            count++;
+                            ArrayList pList = (ArrayList)itr.next();
+                            
+
+                %>
+                <tr style="background-color:<%=color%>;">
+                    <td><%=pList.get(0)%></td>
+                    <td><%=pList.get(1)%></td>
+                    <td><%=pList.get(2)%></td>
+                </tr>
+                <%
+                        }
+                    }
+                    if (count == 0) {
+                %>
+                <tr>
+                    <td colspan=4 align="center"
+                        style="background-color:#eeffee"><b>No Record Found..</b></td>
+                </tr>
+                <%            }
+                %>
+            </table>
+
         </div>
+
 
     </body>
 </html>

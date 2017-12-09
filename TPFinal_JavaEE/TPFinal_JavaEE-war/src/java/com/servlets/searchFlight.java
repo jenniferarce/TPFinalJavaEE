@@ -6,9 +6,12 @@
 package com.servlets;
 
 import com.beans.adminFlightLocal;
+import com.entities.Flight;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -41,7 +44,7 @@ public class searchFlight extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            /*out.println("<!DOCTYPE html>");
+ /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet searchFlight</title>");
@@ -54,10 +57,17 @@ public class searchFlight extends HttpServlet {
             String origin = request.getParameter("origin");
             String destination = request.getParameter("destination");
 
-            adminFlight.doSearchFlight(origin, destination);
+            List<Flight> flights = adminFlight.doSearchFlight(origin, destination);
             
-            request.setAttribute("isSearching", true);
-            request.getRequestDispatcher("home.jsp").include(request, response);
+            request.setAttribute("flights", flights);
+            
+            for (Object object : (List)request.getAttribute("flights")) {
+                System.out.println(object.toString());
+                System.out.println("]asdasd");
+            }
+            
+            request.getRequestDispatcher("flightsList.jsp").forward(request, response);
+           // request.getRequestDispatcher("home.jsp").include(request, response);
         }
     }
 

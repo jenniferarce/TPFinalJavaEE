@@ -7,7 +7,9 @@ package com.beans;
 
 import com.entities.Flight;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,9 +28,11 @@ public class adminFlight implements adminFlightLocal {
 
     @Override
     public List<Flight> doSearchFlight(String origin, String destination) {
-        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT f FROM Flight AS f WHERE f.origin='" + origin + "' AND f.destination='" + destination + "'");
+        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT f.origin, f.destination, f.price FROM Flight AS f WHERE f.origin='" + origin + "' AND f.destination='" + destination + "'");
+
         System.out.println("flights size : " + tQuery.getResultList().size());
-        List<Flight> flights = tQuery.getResultList();
+
+        List<Flight> flights = new ArrayList<>(tQuery.getResultList());
 
         return flights;
     }
