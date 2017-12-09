@@ -1,9 +1,16 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : home
     Created on : 04/12/2017, 21:28:26
     Author     : Jenn
 --%>
 
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="java.lang.String"%>
+<%@page import="javax.ejb.EJB"%>
+<%@page import="com.beans.adminFlightLocal"%>
 <%@page import="com.beans.adminFlight"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -61,30 +68,62 @@
             </div>
         </nav>
         <br>
+
+        <%!
+            //adminFlightLocal helloEjb;
+%>
+        <%
+            //Context context = new InitialContext();
+            //helloEjb = (adminFlight) context.lookup(adminFlightLocal.class.getName());
+%>
+
         <div class="d-flex justify-content-start p-2">
             <h6>Bienvenido <%= request.getParameter("userName")%></h6>
             <!-- OBTENER EL NOMBRE DESDE LA VARIABLE SESSION -->
         </div>
 
         <br><br>
-<!-- 
-        <%  //  List<String> aux = adminFlight.doSearchDestinations() %> -->
-        
+
         <div class="container d-flex justify-content-center flex-md-column">
 
             <div class="col-sm-5 m-auto">
+                <sql:setDataSource  var="co"   driver="com.mysql.jdbc.Driver" 
+                                    url="jdbc:mysql://localhost:3306/tpfinal"
+                                    user="javaee"
+                                    password="1234"
+                                    />
+
+                <sql:query var="origins" dataSource="${co}">
+                    SELECT DISTINCT(ORIGIN) FROM flights
+                </sql:query>
+
+                <sql:query var="destinations" dataSource="${co}">
+                    SELECT DISTINCT(DESTINATION) FROM flights
+                </sql:query>
+
+
                 <form method="GET" action="searchFlight">
                     <h4>Search flights</h4>
+
                     <div class="form-group">
-                        <label for="origin">Origen</label>
+                        <label for="origin">Origin</label>
                         <select class="form-control" id="origin" name="origin" style="width:100%">
-                            <option>Buenos Aires</option>
+                            <c:forEach var="row" items="${origins.rowsByIndex}">
+                                <c:forEach var="column" items="${row}">
+                                    <option><c:out value="${column}"/></option>
+                                </c:forEach>
+                            </c:forEach>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="destination">Destino</label>
+                        <label for="destination">Destination</label>
                         <select class="form-control" id="destination" name="destination">
-                            <option>Londres</option>
+                            <c:forEach var="row" items="${destinations.rowsByIndex}">
+                                <c:forEach var="column" items="${row}">
+                                    <option><c:out value="${column}"/></option>
+                                </c:forEach>
+                            </c:forEach>
                         </select>
                     </div>
 
@@ -113,8 +152,10 @@
                         </tr>
                     </tbody>
                 </table>
+
             </div>
 
         </div>
+
     </body>
 </html>

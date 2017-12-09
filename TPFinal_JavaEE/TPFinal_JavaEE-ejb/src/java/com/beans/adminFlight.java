@@ -25,12 +25,12 @@ public class adminFlight implements adminFlightLocal {
     private EntityManager em;
 
     @Override
-    public Flight doSearchFlight(String origin, String destination) {
-        //TODO: DO SOMETHING
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Flight> doSearchFlight(String origin, String destination) {
+        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT f FROM Flight AS f WHERE f.origin='" + origin + "' AND f.destination='" + destination + "'");
+        System.out.println("flights size : " + tQuery.getResultList().size());
+        List<Flight> flights = tQuery.getResultList();
 
-        //Este método deberá devolver una instancia de Flight en caso que existan registros con el
-        //origen y el destino especificados. En caso de que no exista, deberá devolver NULL.
+        return flights;
     }
 
     // Add business logic below. (Right-click in editor and choose
@@ -41,16 +41,19 @@ public class adminFlight implements adminFlightLocal {
         TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT DISTINCT(f.destination) FROM Flight AS f");
 
         List<String> destinations = tQuery.getResultList();
-        
+
         return destinations;
     }
 
     @Override
     public List<String> doSearchOrigins() {
-       TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT DISTINCT(f.origin) FROM Flight AS f");
+        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT DISTINCT(f.origin) FROM Flight AS f");
 
         List<String> origins = tQuery.getResultList();
-        
+        System.out.println("Origins size " + origins.size());
+        for (String origin : origins) {
+            System.out.println("Origin: " + origin);
+        }
         return origins;
     }
 }
