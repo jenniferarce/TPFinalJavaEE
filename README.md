@@ -1,6 +1,10 @@
 # Configurations
 
 ## Glassfish ##
+JDBC Resources
+- JNDI Name: jdbc/sample
+- Pool Name: SamplePool
+
 JDBC Connection Pool 
 
 General
@@ -16,8 +20,9 @@ Additional Properties
 - URL: jdbc:mysql://localhost:3306/tpfinal
 - Password: 1234
 
-# MySQL
+## MySQL ##
 - User: javaee
 - Password: 1234
 
-Database: tpfinal
+Database 
+- tpfinal
