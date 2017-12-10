@@ -39,21 +39,21 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
-            //1- get username and password
             String userName = request.getParameter("userName");
             String userPassword = request.getParameter("userPassword");
 
             User user = adminUser.doLogin(userName, userPassword);
-          
+
             //TODO: ALMACENAR SESION            
-         
             if (user != null) {
                 request.setAttribute("userName", user.getUserName());
                 request.getRequestDispatcher("home.jsp").forward(request, response);
-            }else if(user==null){
-                 out.println("<label style='color:red;'>Incorrect user or password.</label>");
+            } else if (user == null) {
+                out.println("<div class='alert alert-danger alert-dismissible'>");
+                out.println("Incorrect user or password.");
+                out.println("</div>");
+                // out.println("<label style='color:red;'>Incorrect user or password.</label>");
                 request.getRequestDispatcher("index.html").include(request, response);
             }
         }
