@@ -1,7 +1,8 @@
-# Configurations:
+# Configurations
 
-# Glassfish
-## JDBC Connection Pool ##
+## Glassfish ##
+JDBC Connection Pool 
+
 General
 - Pool Name: SamplePool
 - Resource Type: javax.sql.DataSource
