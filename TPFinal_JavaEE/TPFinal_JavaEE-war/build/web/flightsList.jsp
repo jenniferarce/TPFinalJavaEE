@@ -56,13 +56,7 @@
 
         <br>
 
-        <div class="d-flex justify-content-start p-2">
-            <h5>Bienvenido <%= request.getParameter("userName")%></h5>
-            <!-- OBTENER EL NOMBRE DESDE LA VARIABLE SESSION -->
-        </div>
-
-
-        <div class="container d-flex justify-content-center flex-md-column pb-4">
+        <div class="container-fluid d-flex justify-content-center flex-md-column pb-4">
 
             <div class="col-sm-7 m-auto">
                 <% List<Flight> eList = (List<Flight>) request.getAttribute("flights");%>
@@ -106,7 +100,7 @@
                 </table>
 
                 <div class="d-flex justify-content-end pb-4">
-                    <a class="btn btn-warning" href="home.jsp">Back to Home</a>
+                    <a class="btn btn-info" href="home.jsp">Back to Home</a>
                 </div>
             </div>
 

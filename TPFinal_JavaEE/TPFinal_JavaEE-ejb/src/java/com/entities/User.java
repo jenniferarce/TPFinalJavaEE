@@ -111,7 +111,16 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.entities.User[ id=" + id + " ]";
+       String newLine = System.lineSeparator();
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: "+this.id).append(newLine);
+        sb.append("UserID: "+ this.userID).append(newLine);
+        sb.append("Name: "+this.userRealName).append(newLine);
+        sb.append("Surname: "+this.userSurname).append(newLine);
+        sb.append("UserName: "+this.userName);
+        
+        return sb.toString();
     }
 
 }

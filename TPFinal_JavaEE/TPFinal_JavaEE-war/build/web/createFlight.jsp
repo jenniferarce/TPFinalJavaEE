@@ -49,13 +49,8 @@
                 </li>      
             </div>
         </nav>
+
         <br>
-
-        <div class="d-flex justify-content-start p-2">
-            <h6>Bienvenido <%= request.getParameter("userName")%></h6>
-            <!-- OBTENER EL NOMBRE DESDE LA VARIABLE SESSION -->
-        </div>
-
 
         <div class="container d-flex justify-content-center flex-md-column pb-4">
 
@@ -91,8 +86,10 @@
                         <input type="number" id="price" class="form-control" name="price">
                     </div>
 
-                    <button class="btn btn-primary" type="submit">Submit</button>
-
+                    <div class="form-inline d-flex justify-content-between">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <a class="btn btn-info" href="home.jsp">Back to Home</a>
+                    </div>
                 </form>
             </div>                   
 

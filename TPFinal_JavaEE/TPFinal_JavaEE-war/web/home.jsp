@@ -61,17 +61,21 @@
         </nav>
 
         <br>
-
+        
+        <% if (request.getAttribute("userName") != null) {%>
         <div class="d-flex justify-content-start p-2">
-            <h6>Bienvenido <%= request.getParameter("userName")%></h6>
+
+            <h6 style="font-weight: bold;">Welcome <%= request.getAttribute("userName")%>!</h6>
             <!-- OBTENER EL NOMBRE DESDE LA VARIABLE SESSION -->
+
+            <br>
         </div>
+        <%  }%>
 
-        <br><br>
 
-        <div class="container d-flex justify-content-center flex-md-column pb-4">
+        <div class="container-fluid d-flex justify-content-center flex-md-column pb-4">
 
-            <div class="col-sm-5 m-auto">
+            <div class="col-sm-4 m-auto">
                 <sql:setDataSource  var="co"   driver="com.mysql.jdbc.Driver" 
                                     url="jdbc:mysql://localhost:3306/tpfinal"
                                     user="javaee"

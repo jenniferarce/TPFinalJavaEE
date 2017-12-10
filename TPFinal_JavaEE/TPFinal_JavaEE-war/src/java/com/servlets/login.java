@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,10 +46,32 @@ public class login extends HttpServlet {
 
             User user = adminUser.doLogin(userName, userPassword);
 
-            //TODO: ALMACENAR SESION            
+            System.out.println(user.toString());
+      
             if (user != null) {
                 request.setAttribute("userName", user.getUserName());
+;
+                //Obtain the session object, create a new session if doesn't exist
+                HttpSession session = request.getSession(true);
+
+                //Check if our session variable is set, if so, get the session variable value
+                //which is an Integer object, and add one to the value.
+                //If the value is not set, create an Integer object with the default value 1.
+                //Add the variable to the session overwriting any possible present values.
+                String param = (String) session.getAttribute("MySessionVariable");
+               /* if (param != null) {
+
+                    session.setAttribute("MySessionVariable", new Integer(param.intValue() + 1));
+                    param = (String) session.getAttribute("MySessionVariable");
+
+                }*/ if(param == null) {
+                    param = user.getUserName();
+                    session.setAttribute("MySessionVariable", param);
+
+                }
+
                 request.getRequestDispatcher("home.jsp").forward(request, response);
+
             } else if (user == null) {
                 out.println("<div class='alert alert-danger alert-dismissible'>");
                 out.println("Incorrect user or password.");
