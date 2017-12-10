@@ -19,4 +19,6 @@ public interface adminFlightLocal {
     
     List<String> doSearchDestinations();
     List<String> doSearchOrigins();
+    
+    boolean createFlight(Flight flight);
 }

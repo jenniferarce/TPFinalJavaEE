@@ -28,11 +28,12 @@ public class adminFlight implements adminFlightLocal {
 
     @Override
     public List<Flight> doSearchFlight(String origin, String destination) {
-        TypedQuery tQuery = (TypedQuery) em.createQuery("SELECT f.origin, f.destination, f.price FROM Flight AS f WHERE f.origin='" + origin + "' AND f.destination='" + destination + "'");
+        TypedQuery<Flight> tQuery = (TypedQuery) em.createQuery("SELECT f.origin, f.destination, f.price FROM Flight AS f WHERE f.origin='" + origin + "' AND f.destination='" + destination + "'");
 
         System.out.println("flights size : " + tQuery.getResultList().size());
 
-        List<Flight> flights = new ArrayList<>(tQuery.getResultList());
+        // List<Flight> flights = new ArrayList<>(tQuery.getResultList());
+        List<Flight> flights = tQuery.getResultList();
 
         return flights;
     }
@@ -59,5 +60,17 @@ public class adminFlight implements adminFlightLocal {
             System.out.println("Origin: " + origin);
         }
         return origins;
+    }
+
+    @Override
+    public boolean createFlight(Flight flight) {
+
+        em.persist(flight);
+
+        if (em.contains(flight)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -43,31 +43,19 @@ public class searchFlight extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
- /*out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet searchFlight</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet searchFlight at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");*/
 
             String origin = request.getParameter("origin");
             String destination = request.getParameter("destination");
 
             List<Flight> flights = adminFlight.doSearchFlight(origin, destination);
             
+            request.setAttribute("origin", origin);
+            request.setAttribute("destination", destination);
             request.setAttribute("flights", flights);
             
-            for (Object object : (List)request.getAttribute("flights")) {
-                System.out.println(object.toString());
-                System.out.println("]asdasd");
-            }
-            
+
             request.getRequestDispatcher("flightsList.jsp").forward(request, response);
-           // request.getRequestDispatcher("home.jsp").include(request, response);
+            // request.getRequestDispatcher("home.jsp").include(request, response);
         }
     }
 

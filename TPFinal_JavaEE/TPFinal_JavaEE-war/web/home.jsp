@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>TP</title>
+        <title>Home</title>
 
         <link rel="icon" href="images/duke.png">
 
@@ -46,16 +46,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <!-- <li class="nav-item">
-                         <a class="nav-link" href="#">Features</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="#">Pricing</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="#">About</a>
-                     </li>-->
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="createFlight.jsp">Create flight</a>
+                    </li>
                 </ul>
 
                 <li class="nav-item d-flex justify-content-end">
@@ -63,22 +56,11 @@
                         Logout
                         <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
                     </a>
-                </li>
-                <!-- <form class="form-inline my-2 my-lg-0">
-                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                 </form>-->           
+                </li>      
             </div>
         </nav>
-        <br>
 
-        <%!
-            //adminFlightLocal helloEjb;
-%>
-        <%
-            //Context context = new InitialContext();
-            //helloEjb = (adminFlight) context.lookup(adminFlightLocal.class.getName());
-%>
+        <br>
 
         <div class="d-flex justify-content-start p-2">
             <h6>Bienvenido <%= request.getParameter("userName")%></h6>
@@ -139,9 +121,10 @@
                     </button>
 
                 </form>
-            </div>
+            </div>  
 
             <div class="col-sm-7 pt-3 m-auto">
+                <h4>Available flights </h4>
                 <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
@@ -158,94 +141,10 @@
                                 </c:forEach>
                             </tr>
                         </c:forEach>
-                        <tr>
-                            <td>---</td>
-                            <td>---</td>
-                            <td>--</td>
-                        </tr>
-                        <c:forEach var="row" items="<%= request.getParameter("flights")%>">
-                            <tr>
-                                <c:forEach var="column" items="${row}">
-                                    <td><c:out value="${column}"/></td>
-                                </c:forEach>
-                            </tr>
-                        </c:forEach>
-
-                    </tbody>
-                </table>
-
-                <hr>
-                <h4>RESULTS: </h4>
-
-                <table id="resultsTable" class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Origin</th>
-                            <th>Destination</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="row" items="<%= request.getParameter("flights")%>">
-                            <tr>
-                                <c:forEach var="column" items="${row}">
-                                    <td><c:out value="${column}"/></td>
-                                </c:forEach>
-                            </tr>
-                        </c:forEach>
 
                     </tbody>
                 </table>
             </div>
-
-            <hr>
-            <h2>TEST RESULTS: </h2>
-            <table width="700px" align="center"
-                   style="border:1px solid #000000;">
-                <tr>
-                    <td colspan=4 align="center"
-                        style="background-color:teal">
-                        <b>User Record</b></td>
-                </tr>
-                <tr style="background-color:lightgrey;">
-                    <td><b>User Name</b></td>
-                    <td><b>Password</b></td>
-                    <td><b>Email</b></td>
-                </tr>
-                <%
-                    int count = 0;
-                    String color = "#F9EBB3";
-                    if (request.getAttribute("flights") != null) {
-                        ArrayList<Flight> al = (ArrayList<Flight>)request.getAttribute("flights");
-                        System.out.println(al);
-                        Iterator itr = al.iterator();
-                        while (itr.hasNext()) {
-
-                            if ((count % 2) == 0) {
-                                color = "#eeffee";
-                            }
-                            count++;
-                            ArrayList pList = (ArrayList)itr.next();
-                            
-
-                %>
-                <tr style="background-color:<%=color%>;">
-                    <td><%=pList.get(0)%></td>
-                    <td><%=pList.get(1)%></td>
-                    <td><%=pList.get(2)%></td>
-                </tr>
-                <%
-                        }
-                    }
-                    if (count == 0) {
-                %>
-                <tr>
-                    <td colspan=4 align="center"
-                        style="background-color:#eeffee"><b>No Record Found..</b></td>
-                </tr>
-                <%            }
-                %>
-            </table>
 
         </div>
 
