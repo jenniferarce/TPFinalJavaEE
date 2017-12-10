@@ -1,12 +1,11 @@
 # Configurations
 
 ## Glassfish ##
-### JDBC Resources ###
+#### JDBC Resources ####
 - JNDI Name: jdbc/sample
 - Pool Name: SamplePool
 
-JDBC Connection Pool 
-
+#### JDBC Connection Pool ####
 General
 - Pool Name: SamplePool
 - Resource Type: javax.sql.DataSource
