@@ -1,7 +1,7 @@
 # Configurations
 
 ## Glassfish ##
-JDBC Resources
+### JDBC Resources ###
 - JNDI Name: jdbc/sample
 - Pool Name: SamplePool
 
